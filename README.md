@@ -1,3 +1,5 @@
+[![Build Status](https://travis-ci.org/ju2pom/ju2pom.github.io.svg?branch=master)](https://travis-ci.org/ju2pom/ju2pom.github.io)
+
 # Zetsu
 
 > **Zetsu** - is a clean theme for Jekyll :smirk:
