@@ -1,5 +1,5 @@
 # Site settings
-title: Jams
+title: CoderStack
 email: ju2pom+blog@gmail.com
 description: A C#/WPF coder journey
 baseurl: ""
@@ -12,7 +12,7 @@ author:
   facebook : 
   twitter  : http://twitter.com/julienju2pom
 
-github: https://github.com/nandomoreirame/zetsu
+github: https://github.com/ju2pom
 disqus_shortname: "ju2pom"
 google_analytics: 
 
