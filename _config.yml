@@ -1,8 +1,8 @@
 # Site settings
-title: Zetsu
+title: Jams
 email: zetsu@domain.com
 description: Um lindo tema feito para jekyll e com o <3
-baseurl: "/zetsu"
+baseurl: ""
 url: "http://nandomoreira.me"
 
 author:
