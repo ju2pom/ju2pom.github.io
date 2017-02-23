@@ -1,20 +1,20 @@
 # Site settings
 title: Jams
-email: zetsu@domain.com
-description: Um lindo tema feito para jekyll e com o <3
+email: ju2pom+blog@gmail.com
+description: A C#/WPF coder journey
 baseurl: ""
-url: "http://nandomoreira.me"
+url: ""
 
 author:
-  name     : 'Fernando Moreira'
-  email    : hi@nandomoreira.me
-  url      : http://nandomoreira.me
-  facebook : http://facebook.com/fernando.dev
-  twitter  : http://twitter.com/nandomoreirame
+  name     : 'Julien Amsellem'
+  email    : ju2pom+blog@gmail.com
+  url      : 
+  facebook : 
+  twitter  : http://twitter.com/julienju2pom
 
 github: https://github.com/nandomoreirame/zetsu
-disqus_shortname: "fernandomoreira"
-google_analytics: UA-52446115-1
+disqus_shortname: "ju2pom"
+google_analytics: 
 
 paginate: 2
 comments: true
