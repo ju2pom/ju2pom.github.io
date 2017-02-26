@@ -188,3 +188,15 @@ And in this same assembly you should put an additional resource file (let's call
 
 </ResourceDictionary>
 ```
+
+Then in the WPF application merge this "theme.xaml" with the application's resource dictionary (in App.xaml). This will allow you to use any resource declared in your theme assembly as static resource. Sadly it will work at runtime but not in Visual Studio Xaml designer !
+
+```xml
+<Application.Resources>
+  <ResourceDictionary>
+    <ResourceDictionary.MergedDictionaries>
+      <ResourceDictionary Source="pack://application:,,,/Theme-assembly-name;component/Main.xaml" />
+    </ResourceDictionary.MergedDictionaries>
+  </ResourceDictionary>
+</Application.Resources>
+```
