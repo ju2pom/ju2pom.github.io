@@ -29,13 +29,13 @@ Let's go deeper and start talking about code now. Practically what does it mean 
 
 1. Don't use this kind of code:
 
-```xaml
+```xml
 <Button GotFocus="OnButtonGotFocus" />
 ```
 
 Using this kind of code means that you are going to implement the logic inside the view code (in code behind). Prefer using a great addition from your preferred MVVM toolkit:
 
-```xaml
+```xml
 <Button>
   <i:Interaction.Triggers>
     <i:EventTrigger EventName="GotFocus">
@@ -50,7 +50,7 @@ Using this kind of code means that you are going to implement the logic inside t
 
 The binding you see here is the how you transfert the logic responsibility to the viewmodel which implements something like this:
 
-```C#
+```csharp
 protected MyViewModel()
 {
   this.DoSomethingCommand = new RelayCommand(this.DoSomething);
@@ -67,7 +67,7 @@ private void DoSomething(object parameter)
 2. As a general rule of thumb, try to keep the code behind (xaml.cs file) as empty as possible. You'll often think there is no way to avoid writing code behind, but give it a second though because it's less often that you think !
 3. If you need to make the viewmodel communicate with the view, you should do it without referencing the view in anyway (and avoid referencing the viewmodel in the view). Our best practice here is to use the Messenger pattern. Let's say you want to open a window according to some logic. The problem here is that the logic in the viewmodel should not reference a view. Here is how you can do it:
 
-```C#
+```csharp
 public class ColorBoxViewModel
 {
   ...
@@ -88,7 +88,7 @@ public class ColorBoxViewModel
 
 And in the view:
 
-```C#
+```csharp
 public ColorBox()
 {
   Messenger.Default.Unregister<ColorDialogMessage>(this, this.ShowColorDialog);
@@ -104,7 +104,7 @@ private void ShowColorDialog(ColorDialogMessage message)
 To me Xaml is a quite complex UI description language that needs a lot of attention because its syntax is quite cumbersome. So if code formatting can raise infinite debates it's very important for xaml to follow a few simple rules.
 1. This one is a tip I had from a colleague of mine. Instead of this:
 
-```xaml
+```xml
 <!-- Overall progress bar control -->
 <ProgressBar 
   x:Name="OverallProgress"
@@ -116,7 +116,7 @@ To me Xaml is a quite complex UI description language that needs a lot of attent
   
   Prefer this:
   
-```xaml
+```xml
   <ProgressBar x:Name="OverallProgress"
              Grid.Row="1"
              Height="20"
@@ -130,7 +130,7 @@ This way you can read the name of the control even when the element is collapsed
 4. We often try many settings before finding the expected design which sometimes leads to properties that are set to their default values. Xaml is a verbose language by design, so take the time to remove useless definitions (default margin, alignments ...)
 5. If you want to change the default style of a particular control type create a resource file with the following style:
 
-```xaml
+```xml
 <Style TargetType="{x:Type Button}">
   <Setter Property="FontSize" Value="{StaticResource H2FontSize}" />
   <Setter Property="FontWeight" Value="{StaticResource H2FontWeight}" />
@@ -140,7 +140,7 @@ This way you can read the name of the control even when the element is collapsed
 
 Now add the following piece of code in your App.xaml file:
 
-```xaml
+```xml
 <Application.Resources>
   <ResourceDictionary>
     <ResourceDictionary.MergedDictionaries>
@@ -157,7 +157,7 @@ And all your application's button that don't specify any style will use your cus
 
 And in this same assembly you should put an additional resource file (let's call it theme.xaml) with the following content (this is an exemple):
 
-```xaml
+```xml
 <ResourceDictionary
   xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
   xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
