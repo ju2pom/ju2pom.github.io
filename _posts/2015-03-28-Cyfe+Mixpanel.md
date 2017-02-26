@@ -46,10 +46,10 @@ Where:
 
 # Result
 
-![cyfe-privateurl](images/cyfe-privateurl.png)
+![cyfe-privateurl](/images/cyfe-privateurl.png)
 > How to configure your "Private Url" widget
 
-![cyfe-privateurl](images/cyfe-mixpanel.png)
+![cyfe-privateurl](/images/cyfe-mixpanel.png)
 > 4 widgets using "my" mixpanel connector (5 widgets allowed with free cyfe plan)
 
 #Conclusion
