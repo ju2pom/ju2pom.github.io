@@ -1,6 +1,9 @@
 ---
 layout: post
 title: 6 years of WPF, Part 1
+date:   2017-01-27 03:00:08
+categories: Wpf
+comments: false
 ---
 # Context
 
