@@ -7,7 +7,7 @@ I also wanted it to be pure xaml.
 I use a shape proposed by [Kiran Kumar](http://kenkumar.blogspot.fr/2011/04/xaml-code-for-displaying-star.html) which I slightly modified.
 Here is a visual (nothing really surprising though):
 
-[screenshot](/images/star-ratings.png)
+![screenshot](/images/star-ratings.png)
 
 If you want to try, simply copy/paste the following piece of xaml to your favorite xaml editor (I used [Kaxaml](http://www.kaxaml.com/), which is a great tool):
 
