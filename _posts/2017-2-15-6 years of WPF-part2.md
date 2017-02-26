@@ -1,3 +1,10 @@
+---
+layout: post
+title: 6 years of WPF, Part 2
+date:   2017-02-15 03:00:08
+categories: Wpf
+comments: false
+---
 # Introduction
 
 In the first part of this article I focused on MVVM and its impact on how to write Xaml code. In this second part I'll focus more on pure Xaml code and what makes it so powerful.
