@@ -56,15 +56,19 @@ Indeed you probably often hesitate between doing the conversion in the viewmodel
 
 ## When?
 Here are a few tips that can help to choose how to convert your data:
+
 Use Converter
+
 - Convert data to UI specific info (Visibility, Opacity, ImageSource, Color, DataTemplate ...)
 - When you need the same conversion across many different viewmodels/views
+
 Use Viewmodel
+
 - String conversion (unless it can be shared across many views)
 - When you just want to combine other data
 For the completeness of this section here is a simple converter that also use the parameter to convert an enum value into a boolean value. This converter can be used for a flag enum property that could be bound to a checkbox for exemple.
 
-// For simplicity I have added an enum here, but indeed it doesn't makes sense in production code !
+> For simplicity I have added an enum here, but indeed it doesn't makes sense in production code !
 
 ```csharp
 [Flags]
