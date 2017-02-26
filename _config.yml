@@ -16,7 +16,7 @@ github: https://github.com/ju2pom
 disqus_shortname: "ju2pom"
 google_analytics: 
 
-paginate: 2
+paginate: 4
 comments: true
 paginate_path: "/page/:num"
 
