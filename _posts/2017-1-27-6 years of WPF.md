@@ -27,13 +27,13 @@ MVVM is a big topic, but here I'll try to focus on its impact on how to write Xa
 | --- | --- |
 | Keep UI code and behavior/logic well separated | Xaml code is more complex/verbose |
 | Makes your code testable | Some behaviors are more difficult to implement |
-| Increase code reusability |  |
-| Keeps business logic separated from UI |  |
+| Increase code reusability |
+| Keeps business logic separated from UI |
 
 To help you on this path there are plenty of libraries on the net. Among them [MVVM Light toolkit](http://www.mvvmlight.net/) which we use in my team.
 Let's go deeper and start talking about code now. Practically what does it mean to implement MVVM and how those libraries can help you, what are the good practices?
 
-1. Don't use this kind of code:
+- Don't use this kind of code:
 
 ```xml
 <Button GotFocus="OnButtonGotFocus" />
@@ -70,8 +70,8 @@ private void DoSomething(object parameter)
 }
 ```
 
-2. As a general rule of thumb, try to keep the code behind (xaml.cs file) as empty as possible. You'll often think there is no way to avoid writing code behind, but give it a second though because it's less often that you think !
-3. If you need to make the viewmodel communicate with the view, you should do it without referencing the view in anyway (and avoid referencing the viewmodel in the view). Our best practice here is to use the Messenger pattern. Let's say you want to open a window according to some logic. The problem here is that the logic in the viewmodel should not reference a view. Here is how you can do it, in the viewmodel:
+- As a general rule of thumb, try to keep the code behind (xaml.cs file) as empty as possible. You'll often think there is no way to avoid writing code behind, but give it a second though because it's less often that you think !
+- If you need to make the viewmodel communicate with the view, you should do it without referencing the view in anyway (and avoid referencing the viewmodel in the view). Our best practice here is to use the Messenger pattern. Let's say you want to open a window according to some logic. The problem here is that the logic in the viewmodel should not reference a view. Here is how you can do it, in the viewmodel:
 
 ```csharp
 public class ColorBoxViewModel
@@ -106,9 +106,9 @@ private void ShowColorDialog(ColorDialogMessage message)
 }
 ```
 
-3. Don't forget to cleanup viewmodels, especially if you register to events, that's the good place to unregister (to avoid memory leaks)
-4. Keep your viewmodels small and prefer aggragating sub-viewmodels
-5. *ObservableCollection<T>* is good friend when dealing with collections. Bind it to a *CollectionViewSource* in the view and you have updates, filtering and sorting features build-in !
+- Don't forget to cleanup viewmodels, especially if you register to events, that's the good place to unregister (to avoid memory leaks)
+- Keep your viewmodels small and prefer aggragating sub-viewmodels
+- *ObservableCollection<T>* is good friend when dealing with collections. Bind it to a *CollectionViewSource* in the view and you have updates, filtering and sorting features build-in !
 
 In the viewmodel:
 ```csharp
@@ -134,7 +134,8 @@ In the view:
       
 # XAML Formatting
 To me Xaml is a quite complex UI description language that needs a lot of attention because its syntax is quite cumbersome. So if code formatting can raise infinite debates it's very important for xaml to follow a few simple rules.
-1. This one is a tip I had from a colleague of mine. Instead of this:
+
+- This one is a tip I had from a colleague of mine. Instead of this:
 
 ```xml
 <!-- Overall progress bar control -->
@@ -157,10 +158,10 @@ To me Xaml is a quite complex UI description language that needs a lot of attent
 ```
 
 This way you can read the name of the control even when the element is collapsed which makes the comment useless !
-2. As shown in the samples above it's also nice to keep a single parameter on each line because it's easier to read, makes shorter lines and ease merging task.
-3. I also like to post-fix resources name with the type of resource (UsersComboboxStyle, AutoHideScrollBarTemplate, DarkColorBrush ....) because you often end up having several resources relative to the same element.
-4. We often try many settings before finding the expected design which sometimes leads to properties that are set to their default values. Xaml is a verbose language by design, so take the time to remove useless definitions (default margin, alignments ...)
-5. If you want to change the default style of a particular control type create a resource file with the following style:
+- As shown in the samples above it's also nice to keep a single parameter on each line because it's easier to read, makes shorter lines and ease merging task.
+- I also like to post-fix resources name with the type of resource (UsersComboboxStyle, AutoHideScrollBarTemplate, DarkColorBrush ....) because you often end up having several resources relative to the same element.
+- We often try many settings before finding the expected design which sometimes leads to properties that are set to their default values. Xaml is a verbose language by design, so take the time to remove useless definitions (default margin, alignments ...)
+- If you want to change the default style of a particular control type create a resource file with the following style:
 
 ```xml
 <Style TargetType="{x:Type Button}">
@@ -183,7 +184,7 @@ Now add the following piece of code in your App.xaml file:
 ```
 
 And all your application's button that don't specify any style will use your customized style !
-6. Xaml resources management is a nightmare if not done properly. What we have found very practical is to create an assembly dedicated to xaml resources. See the screenshot below:
+- Xaml resources management is a nightmare if not done properly. What we have found very practical is to create an assembly dedicated to xaml resources. See the screenshot below:
 
 ![theme.jpg](/images/theme.jpg)
 
