@@ -135,7 +135,9 @@ In the view:
 # XAML Formatting
 To me Xaml is a quite complex UI description language that needs a lot of attention because its syntax is quite cumbersome. So if code formatting can raise infinite debates it's very important for xaml to follow a few simple rules.
 
-- This one is a tip I had from a colleague of mine. Instead of this:
+- Naming convention: this one is a tip I had from a colleague of mine, it will allow you to see a control name even when it's collapsed in the code editor !
+
+Instead of this:
 
 ```xml
 <!-- Overall progress bar control -->
@@ -147,7 +149,7 @@ To me Xaml is a quite complex UI description language that needs a lot of attent
   />
 ```
   
-  Prefer this:
+Prefer this:
   
 ```xml
   <ProgressBar x:Name="OverallProgress"
@@ -157,7 +159,6 @@ To me Xaml is a quite complex UI description language that needs a lot of attent
              />
 ```
 
-This way you can read the name of the control even when the element is collapsed which makes the comment useless !
 - As shown in the samples above it's also nice to keep a single parameter on each line because it's easier to read, makes shorter lines and ease merging task.
 - I also like to post-fix resources name with the type of resource (UsersComboboxStyle, AutoHideScrollBarTemplate, DarkColorBrush ....) because you often end up having several resources relative to the same element.
 - We often try many settings before finding the expected design which sometimes leads to properties that are set to their default values. Xaml is a verbose language by design, so take the time to remove useless definitions (default margin, alignments ...)
@@ -178,13 +179,13 @@ Now add the following piece of code in your App.xaml file:
   <ResourceDictionary>
     <ResourceDictionary.MergedDictionaries>
       <ResourceDictionary Source="pack://application:,,,/Assembly-name;component/your-resource-file.xaml" />
-        </ResourceDictionary.MergedDictionaries>
+    </ResourceDictionary.MergedDictionaries>
   </ResourceDictionary>
 </Application.Resources>
 ```
 
 And all your application's button that don't specify any style will use your customized style !
-- Xaml resources management is a nightmare if not done properly. What we have found very practical is to create an assembly dedicated to xaml resources. See the screenshot below:
+- Xaml resources management is a nightmare if not done properly. What we have found very practical is to create an assembly dedicated to default controls styles and general use styles. See the screenshot below:
 
 ![theme.jpg](/images/theme.jpg)
 
@@ -222,7 +223,7 @@ And in this same assembly you should put an additional resource file (let's call
 </ResourceDictionary>
 ```
 
-Then in the WPF application merge this "theme.xaml" with the application's resource dictionary (in App.xaml). This will allow you to use any resource declared in your theme assembly as static resource. Sadly it will work at runtime but not in Visual Studio Xaml designer !
+Then in the WPF application where you want to use this theme, merge the "theme.xaml" file with the application's resource dictionary (in App.xaml). This will allow you to use any resource declared in your theme assembly as static resource. Sadly it will work at runtime but not in Visual Studio Xaml designer !
 
 ```xml
 <Application.Resources>
@@ -233,5 +234,11 @@ Then in the WPF application merge this "theme.xaml" with the application's resou
   </ResourceDictionary>
 </Application.Resources>
 ```
+
+- If like me you never use the WPF designer in Visual Studio set the code editor as the default editor for xaml files:
+  - right click on a xaml file
+  - select "*Open Width"*
+  - select "*Source Code (Text) Editor
+  - and click on the "*Set as Default*" button
 
 [Jump to Part2](https://ju2pom.github.io/6-years-of-WPF-part2)
