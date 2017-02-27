@@ -9,6 +9,8 @@ comments: false
 
 In the first part of this article I focused on MVVM and its impact on how to write Xaml code. In this second part I'll focus more on pure Xaml code and what makes it so powerful.
 
+If you didn't read the first part you can start [here](https://ju2pom.github.io/6-years-of-WPF-part2/)
+
 # Bindings
 
 Well I guess bindings is a well known part of Xaml/MVVM so I won't cover the basics and try to share some less known tips I learned (most of them thanks to StackOverflow !)
