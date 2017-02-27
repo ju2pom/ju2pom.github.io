@@ -1,6 +1,6 @@
 ---
 layout: post
-title: 6 years of WPF, Part 1
+title: WPF journey, Part 1
 date:   2017-01-27 03:00:08
 categories: Wpf
 comments: false
@@ -13,22 +13,25 @@ Anyway the goal of this article is to share my experience and talk about the bes
 
 *This article is not written for total beginner but rather for developers with an average knowledge in WPF/Xaml*
 
-I can't share 6 years of WPF in a single post so this one is the first of a serie. Here I'll stick with MVVM and upcoming posts will cover:
-1. Bindings, Converters
-2. ControlTemplate, DataTemplate and Style
-3. Behaviors and Attached properties
+I will share my WPF journey through several post to cover the following topics:
+
+1. MVVM and Xaml formatting
+2. Bindings, Converters
+3. ControlTemplate, DataTemplate and Style
+4. Behaviors and Attached properties
 
 # MVVM
-MVVM is a big topic, but here I'll try to focus on its impact on how Xaml code. So here are the pros and cons you'll see using this pattern with WPF
+MVVM is a big topic, but here I'll try to focus on its impact on how to write Xaml code. So here are the pros and cons you'll see using this pattern with WPF
 
 | Pros | Cons |
 | --- | --- |
-| Keep UI code and behavior/logic well separated | Xaml code is more complex |
+| Keep UI code and behavior/logic well separated | Xaml code is more complex/verbose |
 | Makes your code testable | Some behaviors are more difficult to implement |
 | Increase code reusability |  |
+| Keeps business logic separated from UI |  |
 
-To help you on this path there are plenty of libraries on the net. Among them *MVVM Light toolkit* which we use in my team.
-Let's go deeper and start talking about code now. Practically what does it mean to implement MVVM and how those library can help you?
+To help you on this path there are plenty of libraries on the net. Among them [MVVM Light toolkit](http://www.mvvmlight.net/) which we use in my team.
+Let's go deeper and start talking about code now. Practically what does it mean to implement MVVM and how those libraries can help you, what are the good practices?
 
 1. Don't use this kind of code:
 
@@ -36,7 +39,7 @@ Let's go deeper and start talking about code now. Practically what does it mean 
 <Button GotFocus="OnButtonGotFocus" />
 ```
 
-Using this kind of code means that you are going to implement the logic inside the view code (in code behind). Prefer using a great addition from your preferred MVVM toolkit:
+Using this kind of code means that you are going to implement the logic inside the view code (in code behind). Prefer using *EventToCommand* available in most MVVM libraries:
 
 ```xml
 <Button>
@@ -51,7 +54,7 @@ Using this kind of code means that you are going to implement the logic inside t
 </Button>
 ```
 
-The binding you see here is the how you transfert the logic responsibility to the viewmodel which implements something like this:
+The binding you see above is the how you transfert the logic responsibility from the view to the viewmodel. Then the viewmodel should implements something like this:
 
 ```csharp
 protected MyViewModel()
@@ -68,7 +71,7 @@ private void DoSomething(object parameter)
 ```
 
 2. As a general rule of thumb, try to keep the code behind (xaml.cs file) as empty as possible. You'll often think there is no way to avoid writing code behind, but give it a second though because it's less often that you think !
-3. If you need to make the viewmodel communicate with the view, you should do it without referencing the view in anyway (and avoid referencing the viewmodel in the view). Our best practice here is to use the Messenger pattern. Let's say you want to open a window according to some logic. The problem here is that the logic in the viewmodel should not reference a view. Here is how you can do it:
+3. If you need to make the viewmodel communicate with the view, you should do it without referencing the view in anyway (and avoid referencing the viewmodel in the view). Our best practice here is to use the Messenger pattern. Let's say you want to open a window according to some logic. The problem here is that the logic in the viewmodel should not reference a view. Here is how you can do it, in the viewmodel:
 
 ```csharp
 public class ColorBoxViewModel
@@ -94,7 +97,7 @@ And in the view:
 ```csharp
 public ColorBox()
 {
-  Messenger.Default.Unregister<ColorDialogMessage>(this, this.ShowColorDialog);
+  Messenger.Default.Register<ColorDialogMessage>(this, this.ShowColorDialog);
 }
 
 private void ShowColorDialog(ColorDialogMessage message)
@@ -103,6 +106,32 @@ private void ShowColorDialog(ColorDialogMessage message)
 }
 ```
 
+3. Don't forget to cleanup viewmodels, especially if you register to events, that's the good place to unregister (to avoid memory leaks)
+4. Keep your viewmodels small and prefer aggragating sub-viewmodels
+5. *ObservableCollection<T>* is good friend when dealing with collections. Bind it to a *CollectionViewSource* in the view and you have updates, filtering and sorting features build-in !
+
+In the viewmodel:
+```csharp
+public ObservableCollection<User> Users
+{
+  get { return this.users; }
+}
+```
+
+In the view:
+
+```xml
+<UserControl.Resources>
+  <CollectionViewSource x:Key="cvs"
+    Source="{Binding Path=Users}"
+    />
+</UserControl.Resources>
+
+<ListBox
+  ItemsSource="{Binding Source={StaticResource cvs}}"
+  />
+```
+      
 # XAML Formatting
 To me Xaml is a quite complex UI description language that needs a lot of attention because its syntax is quite cumbersome. So if code formatting can raise infinite debates it's very important for xaml to follow a few simple rules.
 1. This one is a tip I had from a colleague of mine. Instead of this:
