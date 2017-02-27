@@ -203,3 +203,5 @@ Then in the WPF application merge this "theme.xaml" with the application's resou
   </ResourceDictionary>
 </Application.Resources>
 ```
+
+:point_right: [Jump to Part2](https://ju2pom.github.io/6-years-of-WPF-part2)
