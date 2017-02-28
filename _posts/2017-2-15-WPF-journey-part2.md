@@ -12,11 +12,8 @@ In the first part of this article I focused on MVVM and its impact on how to wri
 If you didn't read the first part you can start [here](/WPF-journey-part1)
 
 # Bindings
-
-Well I guess bindings is a well known part of Xaml/MVVM so I won't cover the basics and try to share some less known tips I learned (most of them thanks to StackOverflow !)
-
+Well I guess bindings is a well known part of Xaml/MVVM so I will go through the basics quicly.
 ## Binding to the viewmodel
-
 The most used binding is the one that ties a viewmodel property to a view element property:
 
 ```xml
@@ -26,8 +23,7 @@ The most used binding is the one that ties a viewmodel property to a view elemen
 ```
 
 ## Binding to a view element
-
-This is quite basic too but you should also know that you can tie a view element property to another view element property:
+This is quite basic too but you can tie a view element property to another view element property:
 
 ```xml
 <!-- Bind to a parent element selected by its type -->
@@ -35,7 +31,7 @@ This is quite basic too but you should also know that you can tie a view element
           IsChecked="{Binding IsSelected, RelativeSource={RelativeSource AncestorType=ListViewItem}}"
           />
 
-<!-- Bind to a named element present in the same xaml file -->
+<!-- Bind to a named element present in the same visual tree -->
 <CheckBox x:Name="MyCheckBox"
           />
 <Expander x:Name="Section"
@@ -49,22 +45,17 @@ This is quite basic too but you should also know that you can tie a view element
 ```
 
 ## Mode
-
 Am I the only one that can't remember how "OneWay" and "OneWayToSource" works? So here is a reminder (maybe only for myself):
 
 OneWay: the viewmodel will update the view but not the opposite
 OneWayToSource: the view will update the viewmodel but not the opposite
-
 # Converters
-
 Converters are a great way to transform your data into something that can be displayed. But they should be used sparingly.
-
 ## Why?
 Because transforming your data for presentation is exactly the responsibility of the view model.
 Indeed you probably often hesitate between doing the conversion in the viewmodel or in a converter.
-
 ## When?
-Here are a few tips that can help to choose how to convert your data:
+I don't have a deterministic way to decide, but here are a few tips that can help to choose how to convert your data:
 
 Use Converter
 
@@ -74,7 +65,7 @@ Use Converter
 Use Viewmodel
 
 - String conversion (unless it can be shared across many views)
-- When you just want to combine other data
+- When you just want to combine other properties from your viewmodel
 For the completeness of this section here is a simple converter that also use the parameter to convert an enum value into a boolean value. This converter can be used for a flag enum property that could be bound to a checkbox for exemple.
 
 > For simplicity I have added an enum here, but indeed it doesn't makes sense in production code !
@@ -119,9 +110,8 @@ And here is how you could use such a converter with a parameter:
 ```
 
 # Styles
-
-In the context of a business/public application you cannot go without styles ! I think I can compare WPF styles to css in HTML.
-That's the best way to define your application's look'n feel. Basically a style is a set of visual properties that can be shared with multiple elements.
+In the context of a business/public application you cannot go without styles! Style is to WPF what css is to HTML.
+That's the best way to define your application's look'n feel. Basically a style is a set of visual properties relative to a control type that can be reused as many times as you want.
 Let's watch a sample:
 
 ```xml
@@ -142,9 +132,12 @@ Well this is a very simple (not so useful) style that you can apply to any butto
         />
 ```
 
-Though using styles this way brings value we are far from its full power ! Indeed like in "code" magic numbers and strings are not welcome in Xaml (IMHO). To avoid them you can use the well know "StaticResource" reserved word in the following way:
+Though using styles this way brings value we are far from its full power! Indeed like in "code", magic numbers and magic strings are not welcome in Xaml (IMHO). To avoid them you can use "StaticResource" the following way:
 
 ```xml
+<system:Double x:Key="DefaultFontSize">15</system:Double>
+<SolidColorBrush x:Key="SpecialOutlineColorBrush" Color="Red" />
+
 <Style x:Key="SpecialPurposeButtonStyle" TargetType="{x:Type Button}">
   <Setter Property="FontSize" Value="{StaticResource DefaultFontSize}" />
   <Setter Property="FontWeight" Value="Bold" />
@@ -154,40 +147,27 @@ Though using styles this way brings value we are far from its full power ! Indee
 </Style>
 ```
 
-You will notice that I didn't replaced all "hard coded" values because not all of them needs to be shared across several styles. Yes, the main benefit of using "StaticResource" is to share properties across many styles. In my team we try to never hard code any color and instead pick one of the defined colors in our graphical charter using StaticResource.
+You will notice that I didn't replaced all "hard coded" values because not all of them needs to be shared across several styles. Yes, the main benefit of using "StaticResource" is to share the same resource across many styles. In my team we try to avoid hard coded colors and instead pick one of the defined colors in our graphical charter using StaticResource.
 
-This leads me to another good practice we have setup about styles and resources. To maintain a good color consistency across the application and to ease color design adjustments we have grouped all our color definitions into one single xaml resource dictionary (let's call it colors.xaml):
+This leads me to another good practice we have setup about styles and resources. To maintain a good color consistency across the application and to ease color design adjustments we have grouped (almost) all our color definitions into one single xaml resource dictionary (let's call it colors.xaml):
 
 ```xml
 <Color x:Key="DarkColor">#1d1d20</Color>
-<Color x:Key="AlphaDarkColor">#CC1d1d20</Color>
 <Color x:Key="LightColor">#353535</Color>
-<Color x:Key="SuperLightColor">#454545</Color>
-<Color x:Key="SupraLightColor">#505050</Color>
 <Color x:Key="OverColor">#2A4B5F</Color>
 <Color x:Key="SelectedColor">#286A8D</Color>
-
 <Color x:Key="HighLightColor">#286A8D</Color>
-<Color x:Key="OverHighLightColor">#2A4B5F</Color>
-<Color x:Key="SelectedHighLightColor">#345376</Color>
 
 <Color x:Key="DefaultTextColor">#E5E5E5</Color>
 <Color x:Key="DarkTextColor">#AAAAAA</Color>
 <Color x:Key="ErrorTextColor">Red</Color>
 <Color x:Key="ErrorColor">#C12C28</Color>
 
-<Color x:Key="StrokeColor">#6B6B6B</Color>
-
-<SolidColorBrush x:Key="AlphaDarkColorBrush" Color="{StaticResource AlphaDarkColor}" />
 <SolidColorBrush x:Key="DarkColorBrush" Color="{StaticResource DarkColor}" />
 <SolidColorBrush x:Key="LightColorBrush" Color="{StaticResource LightColor}" />
-<SolidColorBrush x:Key="SuperLightColorBrush" Color="{StaticResource SuperLightColor}" />
-<SolidColorBrush x:Key="SupraLightColorBrush" Color="{StaticResource SupraLightColor}" />
 <SolidColorBrush x:Key="OverColorBrush" Color="{StaticResource OverColor}" />
 <SolidColorBrush x:Key="SelectedColorBrush" Color="{StaticResource SelectedColor}" />
 <SolidColorBrush x:Key="HighLightColorBrush" Color="{StaticResource HighLightColor}" />
-<SolidColorBrush x:Key="OverHighLightColorBrush" Color="{StaticResource OverHighLightColor}" />
-<SolidColorBrush x:Key="SelectedHighLightColorBrush" Color="{StaticResource SelectedHighLightColor}" />
 
 <SolidColorBrush x:Key="DefaultTextColorBrush" Color="{StaticResource DefaultTextColor}" />
 <SolidColorBrush x:Key="DarkTextColorBrush" Color="{StaticResource DarkTextColor}" />
@@ -195,9 +175,12 @@ This leads me to another good practice we have setup about styles and resources.
 <SolidColorBrush x:Key="ErrorColorBrush" Color="{StaticResource ErrorColor}" />
 ```
 
-Then to be able to use any resource in your other xaml resource dictionaries or custom controls you either have to merge it in App.xaml or in the file resource dictionary of the file where you want to use it.
+Then to be able to use those resources in other xaml files you can:
 
-Now that you can share you styles across all your application there is another useful feature that you should be aware of. You can redefine the look'n feel of any control the following way:
+- merge it in App.xaml
+- merge it the file you want to use it.
+
+Now that you can share your styles across all your application there is another useful feature that you should be aware of. You can redefine the look'n feel of any control the following way:
 
 ```xml
 <Style TargetType="{x:Type Button}">
