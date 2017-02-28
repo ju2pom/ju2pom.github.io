@@ -9,7 +9,7 @@ comments: false
 
 In the first part of this article I focused on MVVM and its impact on how to write Xaml code. In this second part I'll focus more on pure Xaml code and what makes it so powerful.
 
-If you didn't read the first part you can start [here](/2017-1-27-WPF-journey-part1.md)
+If you didn't read the first part you can start [here](/WPF-journey-part1.md)
 
 # Bindings
 
