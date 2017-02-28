@@ -241,4 +241,4 @@ Then in the WPF application where you want to use this theme, merge the "theme.x
   - select "*Source Code (Text) Editor
   - and click on the "*Set as Default*" button
 
-[Jump to Part2](https://ju2pom.github.io/6-years-of-WPF-part2)
+[Jump to Part2](2017-2-15-WPF-journey-part2.md)
