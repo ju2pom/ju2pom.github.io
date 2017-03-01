@@ -47,8 +47,8 @@ This is quite basic too but you can tie a view element property to another view 
 ## Mode
 Am I the only one that can't remember how "OneWay" and "OneWayToSource" works? So here is a reminder (maybe only for myself):
 
-OneWay: the viewmodel will update the view but not the opposite
-OneWayToSource: the view will update the viewmodel but not the opposite
+- **OneWay**: the viewmodel will update the view but not the opposite
+- **OneWayToSource**: the view will update the viewmodel but not the opposite
 # Converters
 Converters are a great way to transform your data into something that can be displayed. But they should be used sparingly.
 ## Why?
@@ -113,7 +113,7 @@ And here is how you could use such a converter with a parameter:
 In the context of a business/public application you cannot go without styles! Style is to WPF what css is to HTML.
 That's the best way to define your application's look'n feel. Basically a style is a set of visual properties relative to a control type that can be reused as many times as you want.
 
-## Basic sample:
+## Basic sample
 
 ```xml
 <Style x:Key="SpecialPurposeButtonStyle" TargetType="{x:Type Button}">
@@ -219,7 +219,53 @@ To maintain a good color consistency across the application and to ease color de
 <SolidColorBrush x:Key="ErrorColorBrush" Color="{StaticResource ErrorColor}" />
 ```
 
-Then to be able to use those resources in other xaml files you can:
+And in this same assembly you should put an additional resource file (let's call it theme.xaml) with the following content (this is an exemple):
 
-- merge it in App.xaml
-- merge it in the file where you want to use it.
+```xml
+<ResourceDictionary
+  xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+  xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+  >
+
+  <!--
+    Dummy style to prevent dictionary optimization.
+    This flags the dictionary as containing default styles.
+  -->
+  <Style TargetType="{x:Type Viewport3D}" />
+
+  <ResourceDictionary.MergedDictionaries>
+    <ResourceDictionary Source="Colors/Colors.xaml" />
+    <ResourceDictionary Source="Controls/Button.xaml" />
+    <ResourceDictionary Source="Controls/TextBlock.xaml" />
+    <ResourceDictionary Source="Controls/TextBox.xaml" />
+    <ResourceDictionary Source="Controls/CheckBox.xaml" />
+    <ResourceDictionary Source="Controls/ComboBox.xaml" />
+    <ResourceDictionary Source="Controls/Expander.xaml" />
+    <ResourceDictionary Source="Controls/ProgressBar.xaml" />
+    <ResourceDictionary Source="Controls/RadioButton.xaml" />
+    <ResourceDictionary Source="Controls/ScrollBar.xaml" />
+    <ResourceDictionary Source="Controls/Slider.xaml" />
+    <ResourceDictionary Source="Controls/TabItem.xaml" />
+    <ResourceDictionary Source="Controls/ToggleButton.xaml" />
+  </ResourceDictionary.MergedDictionaries>
+
+</ResourceDictionary>
+```
+
+Thanks to this single theme.xaml file you can use easily include all resource dictionaries in your application this way:
+
+```xml
+<Application.Resources>
+  <ResourceDictionary>
+    <ResourceDictionary.MergedDictionaries>
+      <ResourceDictionary Source="pack://application:,,,/Theme-assembly-name;component/theme.xaml" />
+    </ResourceDictionary.MergedDictionaries>
+  </ResourceDictionary>
+</Application.Resources>
+```
+Sadly it will work at runtime but not in Visual Studio Xaml designer !
+
+
+
+
+
