@@ -112,7 +112,8 @@ And here is how you could use such a converter with a parameter:
 # Styles
 In the context of a business/public application you cannot go without styles! Style is to WPF what css is to HTML.
 That's the best way to define your application's look'n feel. Basically a style is a set of visual properties relative to a control type that can be reused as many times as you want.
-Let's watch a sample:
+
+## Basic sample:
 
 ```xml
 <Style x:Key="SpecialPurposeButtonStyle" TargetType="{x:Type Button}">
@@ -132,6 +133,7 @@ Well this is a very simple (not so useful) style that you can apply to any butto
         />
 ```
 
+## StaticResource
 Though using styles this way brings value we are far from its full power! Indeed like in "code", magic numbers and magic strings are not welcome in Xaml (IMHO). To avoid them you can use "StaticResource" the following way:
 
 ```xml
@@ -149,7 +151,49 @@ Though using styles this way brings value we are far from its full power! Indeed
 
 You will notice that I didn't replaced all "hard coded" values because not all of them needs to be shared across several styles. Yes, the main benefit of using "StaticResource" is to share the same resource across many styles. In my team we try to avoid hard coded colors and instead pick one of the defined colors in our graphical charter using StaticResource.
 
-This leads me to another good practice we have setup about styles and resources. To maintain a good color consistency across the application and to ease color design adjustments we have grouped (almost) all our color definitions into one single xaml resource dictionary (let's call it colors.xaml):
+Now that you can share your styles across all your application there is another useful feature that you should be aware of. You can redefine the look'n feel of any control the following way:
+
+```xml
+<Style TargetType="{x:Type Button}">
+  <Setter Property="FontSize" Value="{StaticResource DefaultFontSize}" />
+  <Setter Property="FontWeight" Value="Bold" />
+  <Setter Property="MinWidth" Value="80" />
+  <Setter Property="BorderBrush" Value="{StaticResource DefaultOutlineColorBrush}" />
+  <Setter Property="BorderThickness" Value="1" />
+</Style>
+```
+
+With such an implicit style defined (notice that there is no "x:Key" specified) every button will have this style applied except if you specify explicitly a different style.
+
+One final tip about style is inheritance, like we know it for C#. Let's say you have defined an implicit style for all buttons like we just did in the snippet above. WPF allows you to create a new style based on an existing one:
+
+## Default control style
+1. The first style omits the *x:Key* which means it wil be applied to every *Button* except for buttons which have a specific style assigned.
+2. The second style defines a new style based on the default button style.
+3. The third one defines a style based this time on another "named" style.
+
+```xml
+<Style TargetType="{x:Type Button}">
+  <Setter Property="MinWidth" Value="80" />
+  <Setter Property="Template" Value="{StaticResource StandardButtonTemplate}" />
+  <Setter Property="BorderThickness" Value="1" />
+</Style>
+  
+<Style x:Key="SpecialPurposeButtonStyle" TargetType="{x:Type Button}" BasedOn="{StaticResource {x:Type Button}}">
+  <Setter Property="BorderBrush" Value="{StaticResource SpecialOutlineColorBrush}" />
+</Style>
+
+<Style x:Key="SuperSpecialPurposeButtonStyle" TargetType="{x:Type Button}" BasedOn={StaticResource SpecialPurposeButtonStyle}>
+  <Setter Property="Background" Value="{StaticResource SuperSpecialBackgroundColorBrush}" />
+</Style>
+```
+
+## Theme assembly
+A good practice we have setup is to create an assembly dedicated to styles which we could call a *Theme* assembly. This assembly can contain resource dictionaries that defines default style for each control type. Here is what the structure looks like:
+
+![Assembly structure](/images/theme.jpg)
+
+To maintain a good color consistency across the application and to ease color design adjustments we have grouped (almost) all our color definitions into one single xaml resource dictionary (let's call it colors.xaml):
 
 ```xml
 <Color x:Key="DarkColor">#1d1d20</Color>
@@ -178,32 +222,4 @@ This leads me to another good practice we have setup about styles and resources.
 Then to be able to use those resources in other xaml files you can:
 
 - merge it in App.xaml
-- merge it the file you want to use it.
-
-Now that you can share your styles across all your application there is another useful feature that you should be aware of. You can redefine the look'n feel of any control the following way:
-
-```xml
-<Style TargetType="{x:Type Button}">
-  <Setter Property="FontSize" Value="{StaticResource DefaultFontSize}" />
-  <Setter Property="FontWeight" Value="Bold" />
-  <Setter Property="MinWidth" Value="80" />
-  <Setter Property="BorderBrush" Value="{StaticResource DefaultOutlineColorBrush}" />
-  <Setter Property="BorderThickness" Value="1" />
-</Style>
-```
-
-With such an implicit style defined (notice that there is no "x:Key" specified) every button will have this style applied except if you specify explicitly a different style.
-
-One final tip about style is inheritance, like we know it for C#. Let's say you have defined an implicit style for all buttons like we just did in the snippet above. WPF allows you to create a new style based on an existing one:
-
-```xml
-<Style x:Key="SpecialPurposeButtonStyle" TargetType="{x:Type Button}" BasedOn={StaticResource {x:Type Button}}>
-  <Setter Property="BorderBrush" Value="{StaticResource SpecialOutlineColorBrush}" />
-</Style>
-
-<Style x:Key="SuperSpecialPurposeButtonStyle" TargetType="{x:Type Button}" BasedOn={StaticResource SpecialPurposeButtonStyle}>
-  <Setter Property="Background" Value="{StaticResource SuperSpecialBackgroundColorBrush}" />
-</Style>
-```
-
-In the snippet above the first style is based on the implicit style defined for buttons. The second one inherit from another explicit style.
+- merge it in the file where you want to use it.
