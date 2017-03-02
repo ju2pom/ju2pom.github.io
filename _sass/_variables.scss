@@ -20,7 +20,7 @@ $font-weight-bold  : 700 !default;
 $white-color      : #fff !default;
 $text-color       : #303030 !default;
 $brand-color      : #58c93a !default;
-$background-color : #f1f1f1 !default;
+$background-color : #1d1d20 !default;
 $primary-color    : $brand-color !default;
 $bg-color         : #ebebeb !default;
 
@@ -32,7 +32,7 @@ $gray-color-light: lighten($gray-color, 40%) !default;
 $gray-color-dark:  darken($gray-color, 25%) !default;
 
 // Width of the content area
-$content-width:    800px !default;
+$content-width:    960px !default;
 $on-laptop:        $content-width !default;
 $on-palm:          560px !default;
 $on-phone:         480px !default;
