@@ -44,7 +44,7 @@ But you can also:
 # Tips
 1. WPF controls expose quite a lot of properties which can quickly make the property grid overcroweded ! So Snoop allows you to reduce that number with predefined categories (Layout, Grid, Colors ...). You can even create custom categories but I have never been able to make custom categories persist.
 2. You can also use the search field and clear it using *esc* key
-3. One final tip I discovered this year in 2017: you can use <code>|</code> (pipe) in the search field. Here is my favorite: *usel|snaps* which will let you tweak *UseLayoutRounding* and *SnapsToDevicePixels*
+3. One final tip I discovered this year in 2017: you can use <code>|</code> (pipe) in the search field. Here is my favorite: *<code>usel|snaps</code>* which will let you tweak *UseLayoutRounding* and *SnapsToDevicePixels*
 
 # Alternatives
 1. Visual Studio 2015 introduced a new tool that has exactly the same goal (Debug->Windows->Live Visual Tree & Live Property Explorer)
