@@ -9,11 +9,11 @@ comments: false
 [Snoop for WPF](https://snoopwpf.codeplex.com/) is a quite old tool (last release update was in 2012) but even in 2017 I still can't work on WPF/Xaml without it. I always have it launched on my computer.
 Here is what it looks like
 
-![Snoop](/images/snoop.jpg)
 > Looks pretty simple isn't it? 
+![Snoop](/images/snoop.jpg)
 
-![Snoop2](/images/snoop2.jpg)
 > Here is the meat !
+![Snoop2](/images/snoop2.jpg)
 
 ## What is for?
 When developing a WPF you can often have to relaunch your application every single minute just to check a new margin/color/whatever !
@@ -44,7 +44,7 @@ But you can also:
 # Tips
 1. WPF controls expose quite a lot of properties which can quickly make the property grid overcroweded ! So Snoop allows you to reduce that number with predefined categories (Layout, Grid, Colors ...). You can even create custom categories but I have never been able to make custom categories persist.
 2. You can also use the search field and clear it using *esc* key
-3. One final tip I discovered this year in 2017: you can use | (pipe) in the search field. Here is my favorite: *usel|snaps* which will let you tweak *UseLayoutRounding* and *SnapsToDevicePixels*
+3. One final tip I discovered this year in 2017: you can use <code>|</code> (pipe) in the search field. Here is my favorite: *usel|snaps* which will let you tweak *UseLayoutRounding* and *SnapsToDevicePixels*
 
 # Alternatives
 1. Visual Studio 2015 introduced a new tool that has exactly the same goal (Debug->Windows->Live Visual Tree & Live Property Explorer)
