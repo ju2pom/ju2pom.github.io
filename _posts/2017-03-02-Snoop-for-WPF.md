@@ -1,4 +1,9 @@
 ---
+layout: post
+title: Snoop for WPF
+date:   2017-03-2 03:00:08
+categories: WPF
+comments: false
 ---
 # A great WPF tool
 [Snoop for WPF](https://snoopwpf.codeplex.com/) is a quite old tool (last release update was in 2012) but even in 2017 I still can't work on WPF/Xaml without it. I always have it launched on my computer.
