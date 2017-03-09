@@ -7,4 +7,5 @@ group :development do
   gem 'sass', '~> 3.4.10'
   gem 'jekyll', '~> 2.5.3'
   gem 'rouge', '~> 1.10'
+  gem 'jekyll-seo-tag'
 end
