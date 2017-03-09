@@ -4,6 +4,7 @@ title: WPF journey, Part 2
 date:   2017-02-15 03:00:08
 categories: Wpf
 comments: false
+description: WPF, C#, .NET, Xaml, MVVM
 ---
 # Introduction
 
