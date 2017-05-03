@@ -116,7 +116,7 @@ The sample above only demonstrate a very small part of the Grid API
 ## Simple style creation
 
 ```csharp
-var aCheckBox = StyleExtensions.Create()
+Style aCheckBox = StyleExtensions.Create()
     .Set(Control.ForegroundProperty, new SolidColorBrush(Colors.White))
     .Set(Control.BackgroundProperty, new SolidColorBrush(Colors.Gray))
     .AsStyle<CheckBox>();
@@ -136,7 +136,7 @@ But wait, the Triggers API and the Theme API will greatly help !
 ## Styles with triggers
 
 ```csharp
-var aCheckBox = StyleExtensions.Create()
+Style aCheckBox = StyleExtensions.Create()
   .Set(Control.ForegroundProperty, new SolidColorBrush(Colors.Gray))
   .When(TriggerExtensions
     .Property(ToggleButton.IsCheckedProperty)
@@ -146,6 +146,7 @@ var aCheckBox = StyleExtensions.Create()
   .AsStyle<CheckBox>();
 ```
 
+Which is equivalent to:
 ```xml
 <Style x:Key="ACheckBox" TargetType="CheckBox">
   <Setter Property="Foreground" Value="White" />
@@ -158,75 +159,38 @@ var aCheckBox = StyleExtensions.Create()
 </Style>
 ```
 
-Control template creation API
+## Simple ControlTemplate
+
 ```csharp
-var template = TemplateExtensions.Create<Border>()
-    .TemplateBinding(Control.BackgroundProperty, Control.BackgroundProperty)
-    .TemplateBinding(Control.BorderBrushProperty, Control.BorderThicknessProperty)
-    .TemplateBinding(Control.BorderThicknessProperty, Control.BorderThicknessProperty)
-    .Contains<StackPanel>()
-    .Set(StackPanel.OrientationProperty, Orientation.Horizontal)
-    .Contains(TemplateExtensions.Create<Ellipse>()
-      .Set(FrameworkElement.WidthProperty, 8d)
-      .Set(FrameworkElement.HeightProperty, 8d)
-      .TemplateBinding(Shape.FillProperty, Control.ForegroundProperty))
-    .Contains(TemplateExtensions.Create<ContentPresenter>()
-      .Set(FrameworkElement.HorizontalAlignmentProperty, HorizontalAlignment.Center)
-      .Set(FrameworkElement.VerticalAlignmentProperty, VerticalAlignment.Center)
-      .TemplateBinding(ContentPresenter.ContentProperty, ContentControl.ContentProperty))
-    .AsControlTemplate<CheckBox>();
+ControlTemplate template = TemplateExtensions.Create<Border>()
+  .Set(FrameworkElement.HorizontalAlignmentProperty, HorizontalAlignment.Stretch)
+  .Contains(TemplateExtensions.Create<ContentPresenter>())
+  .AsControlTemplate<ListBoxItem>();
 ```
-# FluentWPF vs Xaml:
 
-*FluentWPF*
+This is a very simple ControlTemplate for ListBoxItem elements.
+
+## DataTemplate is easy too
 
 ```csharp
-var TemplateExtensions.Create<Border>()
-    .TemplateBinding(Control.BackgroundProperty, Control.BackgroundProperty)
-    .Contains<ContentPresenter>()
-    .Set(FrameworkElement.HorizontalAlignmentProperty, HorizontalAlignment.Center)
-    .Set(FrameworkElement.VerticalAlignmentProperty, VerticalAlignment.Center)
-    .TemplateBinding(ContentPresenter.ContentProperty, ContentControl.ContentProperty)
-    .AsControlTemplate<CheckBox>();
+DataTemplate template = TemplateExtensions.Create<Border>()
+  .Set(FrameworkElement.HorizontalAlignmentProperty, HorizontalAlignment.Stretch)
+  .Contains(TemplateExtensions.Create<ContentPresenter>())
+  .AsDataTemplate<MyClass>();
+```
 
-var NiceCheckBox = StyleExtensions.Create()
-    .When(TriggerExtensions.Property(ToggleButton.IsCheckedProperty)
-      .Is(true)
-      .Then(Control.FontWeightProperty, FontWeights.Bold)
-      .Then(Control.ForegroundProperty, new SolidColorBrush(Colors.DarkBlue)))
-    .When(TriggerExtensions.Property(UIElement.IsMouseOverProperty)
-      .Is(true)
-      .Then(Control.BackgroundProperty, new SolidColorBrush(Colors.Bisque)))
-    .Template(template)
-    .AsStyle<CheckBox>();
-```    
-*XAML*
+You can use the same API to create a DataTemplate as for ControlTemplate.
 
-```xml
-<ControlTemplate x:Key="NiceCheckBoxTemplate" TargetType="CheckBox">
-  <Border x:Name="Border"
-    Background="{TemplateBinding Background}">
-    <ContentPresenter
-      HorizontalAlignment="Center"
-      VerticalAlignment="Center"
-      />
-  </Border>
-</ControlTemplate>
+## ControlTemplate with TemplateBinding
 
-<Style x:Key="NiceCheckBox" TargetType="CheckBox">
-  <Setter Property="Template" Value="{StaticResource NiceCheckBoxTemplate}">
-  <Style.Triggers>
-    <Trigger Property="IsChecked" Value="True">
-      <Setter Property="FontWeight" Value="Bold" />
-      <Setter Property="Foreground" Value="DarkBlue" />
-    </Trigger>
-    <Trigger Property="IsMouseOver" Value="True">
-      <Setter Property="Background" Value="Bisque" />
-    </Trigger>
-  </Style.Triggers>
-</Style>
-  ```
-  
+```csharp
+ControlTemplate template = TemplateExtensions.Create<Border>()
+  .Set(FrameworkElement.HorizontalAlignmentProperty, HorizontalAlignment.Stretch)
+  .Contains(TemplateExtensions.Create<ContentPresenter>())
+  .TemplateBinding(Border.BackgroundProperty, ListBoxItem.BackgroundProperty)
+  .AsControlTemplate<ListBoxItem>();
+```
+
 # Roadmap
 - Cover same functionalities as XAML
   - Support animations
