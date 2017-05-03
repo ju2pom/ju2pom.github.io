@@ -8,5 +8,5 @@ group :development do
   gem 'jekyll', '~> 2.5.3'
   gem 'rouge', '~> 1.10'
   gem 'jekyll-seo-tag'
-  gem 'jemoji'
+  #gem 'jemoji'
 end
