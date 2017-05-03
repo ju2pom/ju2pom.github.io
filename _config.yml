@@ -31,4 +31,4 @@ permalink : /:title/
 
 gems:
   - jekyll-seo-tag
-  - jemoji
+  #- jemoji
