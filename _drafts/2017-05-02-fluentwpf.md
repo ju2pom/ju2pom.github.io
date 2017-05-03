@@ -64,6 +64,33 @@ new TextBlock()
   .Set(TextBlock.TextProperty, "Some text"))
 ```
 
+## Experiment with bindings
+
+```csharp
+new Button()
+  .AsFluent()
+  .Contains("Button1")
+  .Bind(BindingExtensions
+    .OneTime(ButtonBase.CommandProperty)
+    .With(nameof(RootViewModel.SimpleCommand)))
+```
+
+The binding API should greatly simplify binding syntax. Sure you can bind `OneWay` or `TwoWay` or `OneWayToSource` or `OneTime`.
+You can define the binding source using `With` and specify the path to the DataContext property or bind to self using `WithSelf`.
+
+## Bindings and converters
+
+```csharp
+new ProgressBar()
+  .AsFluent()
+  .Bind(BindingExtensions
+    .OneWay(RangeBase.ValueProperty)
+    .With(nameof(SomeViewModel.Progress))
+    .Convert(x => Math.Round((double) x)))
+```
+
+If you want to adapt your viewmodel's property to your view you still can provide a `IValueConverter` but you can also provide a lambda expression or a method and keep it simple.
+
 ## Create a grid and populate it
 
 ```csharp
@@ -85,35 +112,50 @@ The grid API is meant to ease dealing with grids. For exemple you don't need to 
 And you can define default width and heigh and specify a specific value for any cell if wanted.
 The sample above only demonstrate a very small part of the Grid API
 
-## Experiment with bindings
-
-```csharp
-new Button()
-      .AsFluent()
-      .Contains("Button1")
-      .Bind(BindingExtensions
-        .OneTime(ButtonBase.CommandProperty)
-        .With(nameof(RootViewModel.SimpleCommand)))
-```
-
 
 ## Simple style creation
 
 ```csharp
-var style = StyleExtensions.Create()
-    .Set(Control.ForegroundProperty, colors.Text.Normal)
-    .When(TriggerExtensions.Property(ToggleButton.IsCheckedProperty)
-      .Is(true)
-      .Then(Control.FontWeightProperty, FontWeights.Bold)
-      .Then(Control.ForegroundProperty, colors.Control.Selected))
-    .When(TriggerExtensions.Property(UIElement.IsMouseOverProperty)
-      .Is(true)
-      .Then(Control.BackgroundProperty, colors.Control.Over))
-    .When(TriggerExtensions.Property(FrameworkElement.TagProperty)
-      .Is("test")
-      .Then(ContentControl.ContentProperty, null))
-    .Template(template)
+var aCheckBox = StyleExtensions.Create()
+    .Set(Control.ForegroundProperty, new SolidColorBrush(Colors.White))
+    .Set(Control.BackgroundProperty, new SolidColorBrush(Colors.Gray))
     .AsStyle<CheckBox>();
+```
+
+Which is equivalent to: 
+```xml
+<Style x:Key="ACheckBox" TargetType="CheckBox">
+  <Setter Property="Foreground" Value="White" />
+  <Setter Property="Background" Value="Gray" />
+</Style>
+```
+
+Well is this very simple exemple FluentWPF is not shorter and even a little bit more verbose.
+But wait, the Triggers API and the Theme API will greatly help !
+
+## Styles with triggers
+
+```csharp
+var aCheckBox = StyleExtensions.Create()
+  .Set(Control.ForegroundProperty, new SolidColorBrush(Colors.Gray))
+  .When(TriggerExtensions
+    .Property(ToggleButton.IsCheckedProperty)
+    .Is(true)
+    .Then(Control.FontWeightProperty, FontWeights.Bold)
+    .Then(Control.ForegroundProperty, new SolidColorBrush(Colors.White))
+  .AsStyle<CheckBox>();
+```
+
+```xml
+<Style x:Key="ACheckBox" TargetType="CheckBox">
+  <Setter Property="Foreground" Value="White" />
+  <Style.Triggers>
+    <Trigger Property="IsChecked">
+      <Setter Property="FondWeight" Value="Bold" />
+      <Setter Property="Foreground" Value="White" />
+    </Trigger>
+  </Style.Triggers>
+</Style>
 ```
 
 Control template creation API
