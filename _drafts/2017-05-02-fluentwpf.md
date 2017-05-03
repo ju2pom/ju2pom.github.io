@@ -1,3 +1,11 @@
+---
+layout: post
+title: FluentWPF, an alternative to Xaml
+date:   2017-05-03 03:00:08
+categories: Wpf
+comments: true
+description: WPF, C#, .NET, Xaml, MVVM, fluent api
+---
 # FluentWPF
 
 FluentWPF is a library which offers an alternative Xaml.
