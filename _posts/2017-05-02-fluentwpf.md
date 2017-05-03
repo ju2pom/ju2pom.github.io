@@ -208,21 +208,21 @@ The API will:
 - take care of resource dictionary loading
 
 # Roadmap
-- :white_small_square: Cover same functionalities as XAML
-  - :black_small_square: Support templates/styles
-  - :black_small_square: Support bindings/converters
-  - :white_small_square: Support animations
-  - :black_small_square: Support triggers
-  - :white_small_square: Support behaviors
-- :white_small_square: Write samples
-- :white_small_square: Offer a code friendly Theme engine
-- :white_small_square: More samples
-- :white_small_square: Provide Visual studio code snippets
-- :white_small_square: API documention (or more samples)
-- :white_small_square: Extend the API functionalities beyond XAML
-  - :black_small_square: Leverage lambdas (for triggers?)
-  - :white_small_square: Support inheritance/mixins for styles
-- :white_small_square: Further reduce API verbosity
+- Cover same functionalities as XAML
+  - Support templates/styles
+  - Support bindings/converters
+  - Support animations
+  - Support triggers
+  - Support behaviors
+- Write samples
+- Offer a code friendly Theme engine
+- More samples
+- Provide Visual studio code snippets
+- API documention (or more samples)
+- Extend the API functionalities beyond XAML
+  - Leverage lambdas (for triggers?)
+  - Support inheritance/mixins for styles
+- Further reduce API verbosity
 
 # Feedback
 
