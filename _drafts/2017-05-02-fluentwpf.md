@@ -191,17 +191,33 @@ ControlTemplate template = TemplateExtensions.Create<Border>()
   .AsControlTemplate<ListBoxItem>();
 ```
 
+## Theming ?
+
+A work in progress will also provide a fluent API to ease theme creation.
+The API will:
+- provide a way to define a color palette
+- provide an easy way to define default style for any control type
+- take care of resource dictionary loading
+
 # Roadmap
-- Cover same functionalities as XAML
-  - Support animations
-  - Support triggers
-  - Support behaviors
-- Write samples
-- Offer a code friendly Theme engine
-- More samples
-- Provide Visual studio code snippets
-- API documention (or more samples)
-- Extend the API functionalities beyond XAML
-  - Leverage lambdas (for triggers?)
-  - Support inheritance/mixins for styles
-- Further reduce API verbosity
+- [ ] Cover same functionalities as XAML
+  - [x] Support templates/styles
+  - [x] Support bindings/converters
+  - [ ] Support animations
+  - [x] Support triggers
+  - [ ] Support behaviors
+- [ ] Write samples
+- [ ] Offer a code friendly Theme engine
+- [ ] More samples
+- [ ] Provide Visual studio code snippets
+- [ ] API documention (or more samples)
+- [ ] Extend the API functionalities beyond XAML
+  - [x] Leverage lambdas (for triggers?)
+  - [ ] Support inheritance/mixins for styles
+- [ ] Further reduce API verbosity
+
+# Feedback
+
+**Right now FluentWPF is not finished and not published, but I'd love to get feedback from the community about this project.
+I plan to release FluentWPF as a library bundled with a quite advanced demo application.
+The license is not defined and I'm not yet sure to open source it or not.**
