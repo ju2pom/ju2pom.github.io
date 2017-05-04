@@ -3,7 +3,7 @@ layout: post
 title: WPF journey, Part 2
 date:   2017-02-15 03:00:08
 categories: Wpf
-comments: false
+comments: true
 description: WPF, C#, .NET, Xaml, MVVM
 ---
 # Introduction
