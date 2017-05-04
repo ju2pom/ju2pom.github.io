@@ -3,7 +3,7 @@ layout: post
 title: Snoop for WPF
 date:   2017-03-2 03:00:08
 categories: WPF
-comments: false
+comments: true
 description: WPF, Xaml, Snoop, Visual Studio
 ---
 # A great WPF tool
