@@ -3,7 +3,7 @@ layout: post
 title: Pure xaml staring control
 date:   2014-09-29 03:00:08
 categories: Xaml
-comments: false
+comments: true
 description: WPF, C#, .NET, Xaml, Rating, Kaxaml
 ---
 One of the best feature in wpf/xaml is ability to completely redesign a built-in control without any line of code.
