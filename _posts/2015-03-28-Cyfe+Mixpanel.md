@@ -3,7 +3,7 @@ layout: post
 title: Cyfe + MixPanel
 date:   2015-03-28 03:00:08
 categories: Python
-comments: false
+comments: true
 description: Python, Cyfe, Analytics, Mixpanel, Flask
 ---
 # Intro
