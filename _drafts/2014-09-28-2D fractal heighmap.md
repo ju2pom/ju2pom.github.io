@@ -6,7 +6,7 @@ categories: Algorithm, Fractal, Heightmap
 comments: true
 description: C#, Procedural generation
 ---
-#Intro
+# Intro
 I recently had to generate a random 2D heightmap for a spare time project.
 
 Then I recalled [Paul Bourke](http://paulbourke.net/fractals/) excellent page about fractals (and a lot more !)
@@ -24,7 +24,7 @@ Let me quickly describe the 3D algorithm in a few steps:
 ![screenshot](/images/paulbourke_illustration.png)
 *Illustrations from Paul Bourke (1000 iterations)*
 
-#2D Transposition
+# 2D Transposition
 
 [download demo](/downloads/HeightMapDemo.zip)
 
@@ -51,7 +51,7 @@ Indeed the more iteration the more "details" you get but the downside is that it
 
 I naively I though it would be faster, but indeed it produce exactly the same amount of processing. There is at least one benefit to this method, being able to calculate elevation for any coordinate (the map size can grow at any time).
 
-#Generalization
+# Generalization
 After playing a bit with my generator, I thought it could funny to go a bit further. What happens if instead of dividing the map in two part with a line, I choose a different primitive like a circle.
 
 And well, why not a triangle or square?
@@ -63,7 +63,7 @@ And well, why not a triangle or square?
 *Here are some outputs using a random combination of lines, circles, triangles and rectangles.
 As you can see other shapes introduce a huge bias, most probably because I use circles, rectangles and triangles that fully lie inside the grid. I will try to find a better way to define those shapes. But the good thing it that it seems to remove visible line patterns (that what led me to this idea).*
 
-#Updated (September 30th 2014)
+# Updated (September 30th 2014)
 At the cost of a lot more iterations, and using a square grid instead of a rectangular one the visual results seem good. The performance are not so good even with a small change I did to take advantage of parallel computing (4x times faster on a quad core).
 
 ```csharp
@@ -227,8 +227,8 @@ namespace HeightMapDemo
 }
 ```
 
-##Updated (October 3rd 2014)
-#Fuzzyness
+## Updated (October 3rd 2014)
+# Fuzzyness
 I was wondering how I could achieve good results with less iterations. Because I must admit that less 5K iterations produces visible edges (even if I mix different primitives). Then I though that instead of splitting the grid with hard edges I could introduce "fuzzy" edges.
 
 How I made it ? Using perlin noise to scramble edges. Basically if a point is close enough to an edge, instead of being binary categorized, a 2D perlin noise is used to categorize. Below you can see the code for a line divider:
