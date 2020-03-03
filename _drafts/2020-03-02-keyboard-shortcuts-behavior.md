@@ -4,8 +4,20 @@ title: Keyboard shortcut behavior
 date:   2020-03-02 03:00:08
 categories: Wpf
 comments: true
-description: WPF, C#, .NET, Xaml, MVVM
+description: WPF, C#, .NET, Xaml, MVVM, Keybinding, Shortcut
 ---
+# Demo app
+
+![screenshot](../images/shortcutdemo.png)
+
+See the full source code in the demo application on github [here](https://github.com/ju2pom/WPF-ShortcutDemo)
+
+# Real world application
+
+[![logo](https://photoinsight.io/images/logo-128-h_jxnq0zb7-128x128.png)](https://photoinsight.io)[![photoinsight](../images/photoInsight.jpg)](https://photoinsight.io)
+
+I've first implemented this behavior for an application I'm developing [photoinsight](https://photoinsight.io) and decided to share it with the community.
+
 # Problem
 
 When building an desktop application you have so many tasks to do that you'd better automate things as much as possible. In this post I'd like to present a small automation I did related to keyboard shortcuts.
@@ -111,6 +123,12 @@ And reuse the same UI Automation name on the element
   local:ToolTipShortcutBehavior.AutomationUIName="ToggleBoldKeyBinding"
   />
 ```
+
+# Limitation
+
+* In the Xaml file you must declare the __AutomationUIName__ after the ToolTip value otherwise it gets overwritten.
+* If you have a dynamic ToolTip the shortcut display will be lost
+* If your ToolTip is assigned with anything else than a string it will be also overwritten 
 
 See the full source code in the demo application on github [here](https://github.com/ju2pom/WPF-ShortcutDemo)
 
