@@ -14,7 +14,7 @@ See the full source code in the demo application on github [here](https://github
 
 # Real world application
 
-[![logo](https://photoinsight.io/images/logo-128-h_jxnq0zb7-128x128.png)](https://photoinsight.io)[![photoinsight](../images/photoInsight.jpg)](https://photoinsight.io)
+[![photoinsight](../images/photoInsight.jpg)](https://photoinsight.io)
 
 I've first implemented this behavior for an application I'm developing [photoinsight](https://photoinsight.io) and decided to share it with the community.
 
@@ -24,7 +24,7 @@ When building an desktop application you have so many tasks to do that you'd bet
 
 Keyboard shortcuts may be considered as a power user feature, still it's a must have. This is one of the best/easiest way to let users increase productivity.
 
-The drawback with keyboard shortcuts is that it's the worst discoverable feature in a desktop application. You can list them all in the documentation … but nobody read documentation!
+The drawback with keyboard shortcuts is that it's the worst discoverable feature in a desktop application. You can list them all in the documentation … but nobody reads documentation!
 
 You can implement a "Tip of the day" … but it's so 2000's
 
@@ -38,9 +38,9 @@ Can you just implement keyboard shortcuts and let the user guess they exist?
 
 # Solution
 
-My solution to this problem is a very simple WPF behavior which automatically append a shortcut to any element's tooltip. Basically, define a KeyBinding at the main window level, and then anywhere else use the behavior on the UI element that should host the shortcut tooltip.
+My solution to this problem is a very simple WPF behavior which automatically append a shortcut description to any element's tooltip. Basically, you define a KeyBinding at the main window level, and then anywhere else use the behavior on the UI element that should host the shortcut tooltip.
 
-What's great with this behavior is that you don't need manually maintain consistency between the shortcut and the tooltip.
+What's great with this behavior is that you don't need to manually maintain consistency between the shortcut and the tooltip.
 
 Here is the behavior
 
